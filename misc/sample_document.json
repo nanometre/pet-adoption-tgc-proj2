@@ -1,0 +1,40 @@
+[
+    {
+        "_id": "123",
+        "name": "Thunder",
+        "img_url": "",
+        "gender": "Male",
+        "species": {
+            "species_name": "Dog",
+            "breed": "Golden Retriever"
+        },
+        "status_tags": [
+            "v","m","s","h"
+        ],
+        "adopt_foster": "Adopt and Foster",
+        "current_caretaker": {
+            "_id": "123456",
+            "caretaker_name": "Paw Shelter",
+            "contact_number": "91234567"
+        }
+    },
+    {
+        "_id": "456",
+        "name": "Cloud",
+        "img_url": "",
+        "gender": "Female",
+        "species": {
+            "species_name": "Cat",
+            "breed": "Norwegian Forest Cat"
+        },
+        "status_tags": [
+            "v","m","s","h"
+        ],
+        "adopt_foster": "Adopt",
+        "current_caretaker": {
+            "_id": "987654",
+            "caretaker_name": "Tan Ah Kow",
+            "contact_number": "98765432"
+        }
+    }
+]
