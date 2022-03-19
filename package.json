@@ -1,0 +1,24 @@
+{
+  "name": "pet-adoption-tgc-proj2",
+  "version": "1.0.0",
+  "description": "*Note: This is a bootcamp project where an interactive web application was created using React, Express and MongoDB*",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanometre/pet-adoption-tgc-proj2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nanometre/pet-adoption-tgc-proj2/issues"
+  },
+  "homepage": "https://github.com/nanometre/pet-adoption-tgc-proj2#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongodb": "^4.4.1"
+  }
+}
