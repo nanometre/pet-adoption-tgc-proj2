@@ -1,3 +1,5 @@
+const validate = require('../middleware/validate')
+const schema = require('../schema/animal-schema')
 
 const MongoUtil = require('./MongoUtil.js');
 const express = require('express');
@@ -21,7 +23,7 @@ async function main() {
         res.send("Express app is functional")
     })
 
-    // GET: Return all animals in the DB
+    // GET: Return all animals in the DB (READ)
     app.get("/animals", async function (req, res){
         let db = MongoUtil.getDB();
         let animalRecords = await db.collection(COLLECTION_NAME)
@@ -30,16 +32,57 @@ async function main() {
         res.json(animalRecords)
     })
 
-    // POST: Add new animals in the DB
-    app.post("/animals", async function (req, res) {
-        let {name, gender} = req.body
+    // GET: Return one animal in the DB by ID (READ)
+    // Might not be require, better to find by search terms
+    app.get("/animals/:_id", async function (req, res){
+        let db = MongoUtil.getDB();
+        let animalRecord = await db.collection(COLLECTION_NAME)
+                                   .findOne({
+                                       _id: new ObjectId(req.params._id)
+                                   });
+        res.json(animalRecord)
+    })
+
+    // POST: Add new animals in the DB (CREATE)
+    app.post("/animals", validate.validate(schema.animalSchema), async function (req, res) {
+        let {
+            name,
+            img_url,
+            gender,
+            date_of_birth,
+            species,
+            status_tags,
+            description,
+            adopt_foster,
+            current_caretaker
+        } = req.body
 
         let db = MongoUtil.getDB();
         await db.collection(COLLECTION_NAME).insertOne({
             name,
-            gender
+            img_url,
+            gender,
+            date_of_birth,
+            species,
+            status_tags,
+            description,
+            adopt_foster,
+            current_caretaker
         })
-        res.send("Response received")
+        res.send("New animal added")
+    })
+
+    // PATCH/PUT: Edit animals in DB by ID (UPDATE)
+    // 
+
+    // DELETE: Delete animals in DB by ID (DELETE)
+    app.delete("/animals/:_id", async function(req, res){
+        let db = MongoUtil.getDB()
+        await db.collection(COLLECTION_NAME).deleteOne({
+            _id: ObjectId(req.params._id)
+        });
+        // res.status(200)
+        res.send(`Animal record (ID: ${req.params._id}) deleted`)
     })
 
     app.listen(8888, () => {

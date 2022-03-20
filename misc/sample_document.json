@@ -1,13 +1,15 @@
 [
     {
-        "_id": "0011",
+        "_id": "",
         "name": "Meowy",
-        "img_url": "",
+        "img_url": "https://images.pexels.com/photos/1314550/pexels-photo-1314550.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Male",
+        "date_of_birth": "2022-03-20",
         "species": {
             "species_name": "Cat",
             "breed": "British Shorthair"
         },
+        "description": "I am a cat",
         "status_tags": [
             "v","m","s"
         ],
@@ -15,18 +17,20 @@
         "current_caretaker": {
             "_id": "100789",
             "caretaker_name": "Bonnie Wong",
-            "contact_number": "91234567"
+            "email": "bonnie_wong@gmail.com"
         }
     },
     {
-        "_id": "0012",
+        "_id": "",
         "name": "Storm",
-        "img_url": "",
+        "img_url": "https://images.pexels.com/photos/342214/pexels-photo-342214.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Male",
+        "date_of_birth": "2022-03-20",
         "species": {
             "species_name": "Dog",
             "breed": "German Shepherd"
         },
+        "description": "I am a dog",
         "status_tags": [
             "v","m","s"
         ],
@@ -34,18 +38,20 @@
         "current_caretaker": {
             "_id": "100654",
             "caretaker_name": "Tan Ah Kow",
-            "contact_number": "98765432"
+            "email": "tak@hotmail.com"
         }
     },
     {
-        "_id": "0013",
+        "_id": "",
         "name": "Flash",
-        "img_url": "",
+        "img_url": "https://images.pexels.com/photos/3362698/pexels-photo-3362698.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Male",
+        "date_of_birth": "2022-03-20",
         "species": {
             "species_name": "Hamster",
             "breed": "Syrian Hamster"
         },
+        "description": "I am a hamster",
         "status_tags": [
             "h"
         ],
@@ -53,18 +59,20 @@
         "current_caretaker": {
             "_id": "100099",
             "caretaker_name": "Pet Sanctuary",
-            "contact_number": "67897890"
+            "email": "pet_sanctuary@gmail.com"
         }
     },
     {
-        "_id": "0014",
+        "_id": "",
         "name": "Daisy",
-        "img_url": "",
+        "img_url": "https://images.pexels.com/photos/8473529/pexels-photo-8473529.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Female",
+        "date_of_birth": "2022-03-20",
         "species": {
             "species_name": "Dog",
             "breed": "Pomeranian"
         },
+        "description": "I am a dog",
         "status_tags": [
             "v","h"
         ],
@@ -72,45 +80,7 @@
         "current_caretaker": {
             "_id": "100099",
             "caretaker_name": "Pet Sanctuary",
-            "contact_number": "67897890"
-        }
-    },
-    {
-        "_id": "0015",
-        "name": "Benji",
-        "img_url": "",
-        "gender": "Male",
-        "species": {
-            "species_name": "Dog",
-            "breed": "Bolognese"
-        },
-        "status_tags": [
-            "v","s","h"
-        ],
-        "adopt_foster": "Adopt",
-        "current_caretaker": {
-            "_id": "100099",
-            "caretaker_name": "Pet Sanctuary",
-            "contact_number": "67897890"
-        }
-    },
-    {
-        "_id": "0016",
-        "name": "Charlie",
-        "img_url": "",
-        "gender": "Male",
-        "species": {
-            "species_name": "Cat",
-            "breed": "European Shorthair"
-        },
-        "status_tags": [
-            "v","m","s","h"
-        ],
-        "adopt_foster": "Adopt",
-        "current_caretaker": {
-            "_id": "100654",
-            "caretaker_name": "Tan Ah Kow",
-            "contact_number": "98765432"
+            "email": "pet_sanctuary@gmail.com"
         }
     }
 ]
