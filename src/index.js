@@ -1,10 +1,12 @@
-const express = require('express');
-const MongoUtil = require('./MongoUtil.js');
-const ObjectId = require('mongodb').ObjectId;
-const cors = require('cors');
-require('dotenv').config();
-let app = express();
 
+const MongoUtil = require('./MongoUtil.js');
+const express = require('express');
+const cors = require('cors');
+const ObjectId = require('mongodb').ObjectId;
+const dotenv = require('dotenv');
+dotenv.config();
+
+let app = express();
 app.use(express.json());
 app.use(cors());
 
@@ -25,7 +27,7 @@ async function main() {
         let animalRecords = await db.collection(COLLECTION_NAME)
                                     .find()
                                     .toArray();
-        res.send(animalRecords)
+        res.json(animalRecords)
     })
 
     // POST: Add new animals in the DB
@@ -40,7 +42,7 @@ async function main() {
         res.send("Response received")
     })
 
-    app.listen(3000, () => {
+    app.listen(8888, () => {
         console.log('Server has started')
     })
 }
