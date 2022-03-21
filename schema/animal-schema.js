@@ -30,9 +30,11 @@ const putAnimalSchema = object({
         status_tags: array().of(
             string().typeError("status_tags must be a string")
         ),
-        adopt_foster: string()
-                      .required("adopt_foster is required")
-                      .typeError("adopt_foster must be a string"),
+        adopt_foster: array().of(
+            string()
+            .required("adopt_foster is required")
+            .typeError("adopt_foster must be a string")
+        ),
         current_caretaker: object({
             _id: number()
                  .required("current_caretaker _id is required")
@@ -80,12 +82,13 @@ const postAnimalSchema = object({
         status_tags: array().of(
             string().typeError("status_tags must be a string")
         ),
-        adopt_foster: string()
-                      .required("adopt_foster is required")
-                      .typeError("adopt_foster must be a string"),
+        adopt_foster: array().of(
+            string()
+            .required("adopt_foster is required")
+            .typeError("adopt_foster must be a string")
+        ),
         current_caretaker: object({
-            _id: number()
-                 .required("current_caretaker _id is required")
+            _id: string()
                  .typeError("current_caretaker _id must be a string"),
             caretaker_name: string()
                             .required("caretaker_name is required")

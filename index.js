@@ -25,11 +25,20 @@ async function main() {
     })
 
     // POST: Add new animals in the DB (CREATE)
-    app.post("/animals/add", validate.validate(schema.postAnimalSchema), async function (req, res) {
-        let {
-            name, img_url, gender, date_of_birth, species, status_tags,
-            description, adopt_foster, current_caretaker
-        } = req.body
+    app.post("/animals", validate.validate(schema.postAnimalSchema), async function (req, res) {
+        let name = req.body.name
+        let img_url = req.body.img_url
+        let gender = req.body.gender
+        let date_of_birth = req.body.date_of_birth
+        let species = req.body.species
+        let status_tags = req.body.status_tags
+        let description = req.body.description
+        let adopt_foster = req.body.adopt_foster
+        let _id = new ObjectId()
+        let caretaker_name = req.body.current_caretaker.caretaker_name
+        let caretaker_email = req.body.current_caretaker.email
+        let current_caretaker = { _id, caretaker_name, caretaker_email }
+
 
         let db = MongoUtil.getDB();
         await db.collection(COLLECTION_NAME).insertOne({
@@ -66,7 +75,7 @@ async function main() {
     })
 
     // PUT: Edit animals in DB by ID (UPDATE)
-    app.put("/animals/edit/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
+    app.put("/animals/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
         try {
             let {
                 name, img_url, gender, date_of_birth, species, status_tags,
@@ -90,7 +99,7 @@ async function main() {
     })
 
     // DELETE: Delete animals in DB by ID (DELETE)
-    app.delete("/animals/delete/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
+    app.delete("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB()
             await db.collection(COLLECTION_NAME).deleteOne({
@@ -106,21 +115,9 @@ async function main() {
     // test for query
     app.get("/querytest", async function (req, res) {
         let criteria = {}
-        let gender
-        // console.log(req.query.gender)
-        if (!req.query.gender){
-            gender = ""
-        }else{
-            gender = req.query.gender
-        }
-        if (req.query.search) {
-            criteria['description'] = {
-                $regex: req.query.search,
-                $options: 'i'
-            }
+        if (req.query.gender) {
             criteria['gender'] = {
-                $regex: gender,
-                $options: 'i'
+                $regex: new RegExp("^" + req.query.gender.toLowerCase(), "i")
             }
         };
 
@@ -129,10 +126,12 @@ async function main() {
             .find(criteria)
             .toArray()
 
-        res.send(queryResults) // returns {"description":"dog","name":"bob"}
+        res.send(queryResults)
     })
 
-    app.listen(process.env.PORT, () => {
+    // Deployment port: process.env.PORT
+    // Testing port: 8888
+    app.listen(8888, () => {
         console.log('Server has started')
     })
 }

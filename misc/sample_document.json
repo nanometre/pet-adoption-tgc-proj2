@@ -13,9 +13,8 @@
         "status_tags": [
             "v","m","s"
         ],
-        "adopt_foster": "Adopt and Foster",
+        "adopt_foster": ["Adopt", "Foster"],
         "current_caretaker": {
-            "_id": "100789",
             "caretaker_name": "Bonnie Wong",
             "email": "bonnie_wong@gmail.com"
         }
@@ -34,9 +33,8 @@
         "status_tags": [
             "v","m","s"
         ],
-        "adopt_foster": "Adopt",
+        "adopt_foster": ["Adopt"],
         "current_caretaker": {
-            "_id": "100654",
             "caretaker_name": "Tan Ah Kow",
             "email": "tak@hotmail.com"
         }
@@ -55,9 +53,8 @@
         "status_tags": [
             "h"
         ],
-        "adopt_foster": "Foster",
+        "adopt_foster": ["Foster"],
         "current_caretaker": {
-            "_id": "100099",
             "caretaker_name": "Pet Sanctuary",
             "email": "pet_sanctuary@gmail.com"
         }
@@ -76,9 +73,8 @@
         "status_tags": [
             "v","h"
         ],
-        "adopt_foster": "Adopt",
+        "adopt_foster": ["Adopt"],
         "current_caretaker": {
-            "_id": "100099",
             "caretaker_name": "Pet Sanctuary",
             "email": "pet_sanctuary@gmail.com"
         }
