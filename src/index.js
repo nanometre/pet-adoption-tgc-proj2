@@ -15,74 +15,93 @@ app.use(cors());
 const mongoUri = process.env.MONGO_URI;
 const COLLECTION_NAME = 'animals';
 
-async function main() { 
+// res.json is only needed for POST and PUT requests
+// res.json is not needed for GET and DELETE requests
+async function main() {
     await MongoUtil.connect(mongoUri, 'pet_adoption')
 
-    // test page for default link
+    // Default page
     app.get("/", function (req, res) {
         res.send("Express app is functional")
     })
 
+    // POST: Add new animals in the DB (CREATE)
+    app.post("/animals", validate.validate(schema.postAnimalSchema), async function (req, res) {
+        let {
+            name, img_url, gender, date_of_birth, species, status_tags,
+            description, adopt_foster, current_caretaker
+        } = req.body
+
+        let db = MongoUtil.getDB();
+        await db.collection(COLLECTION_NAME).insertOne({
+            name, img_url, gender, date_of_birth, species, status_tags,
+            description, adopt_foster, current_caretaker
+        })
+        res.send("New animal added")
+    })
+
     // GET: Return all animals in the DB (READ)
-    app.get("/animals", async function (req, res){
+    // To edit. Look at tgc16-mongo 07-api, GET request is combined with search??
+    app.get("/animals", async function (req, res) {
         let db = MongoUtil.getDB();
         let animalRecords = await db.collection(COLLECTION_NAME)
-                                    .find()
-                                    .toArray();
+            .find()
+            .toArray();
         res.json(animalRecords)
     })
 
     // GET: Return one animal in the DB by ID (READ)
     // Might not be require, better to find by search terms
-    app.get("/animals/:_id", async function (req, res){
-        let db = MongoUtil.getDB();
-        let animalRecord = await db.collection(COLLECTION_NAME)
-                                   .findOne({
-                                       _id: new ObjectId(req.params._id)
-                                   });
-        res.json(animalRecord)
+    app.get("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
+        try {
+            let db = MongoUtil.getDB();
+            let animalRecord = await db.collection(COLLECTION_NAME)
+                .findOne({
+                    _id: new ObjectId(req.params._id)
+                });
+            res.json(animalRecord)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
     })
 
-    // POST: Add new animals in the DB (CREATE)
-    app.post("/animals", validate.validate(schema.animalSchema), async function (req, res) {
+    // PUT: Edit animals in DB by ID (UPDATE)
+    app.put("/animals/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
+        try {
         let {
-            name,
-            img_url,
-            gender,
-            date_of_birth,
-            species,
-            status_tags,
-            description,
-            adopt_foster,
-            current_caretaker
+            name, img_url, gender, date_of_birth, species, status_tags,
+            description, adopt_foster, current_caretaker
         } = req.body
-
         let db = MongoUtil.getDB();
-        await db.collection(COLLECTION_NAME).insertOne({
-            name,
-            img_url,
-            gender,
-            date_of_birth,
-            species,
-            status_tags,
-            description,
-            adopt_foster,
-            current_caretaker
-        })
-        res.send("New animal added")
+        let updateAnimalRecord = await db.collection(COLLECTION_NAME)
+            .updateOne({
+                _id: ObjectId(req.params._id)
+            }, {
+                $set: {
+                    name, img_url, gender, date_of_birth, species,
+                    status_tags, description, adopt_foster, current_caretaker
+                }
+            })
+        res.send(`Animal record (ID: ${req.params._id}) updated`)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
     })
-
-    // PATCH/PUT: Edit animals in DB by ID (UPDATE)
-    // 
 
     // DELETE: Delete animals in DB by ID (DELETE)
-    app.delete("/animals/:_id", async function(req, res){
-        let db = MongoUtil.getDB()
-        await db.collection(COLLECTION_NAME).deleteOne({
-            _id: ObjectId(req.params._id)
-        });
-        // res.status(200)
-        res.send(`Animal record (ID: ${req.params._id}) deleted`)
+    app.delete("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
+        try {
+            let db = MongoUtil.getDB()
+            await db.collection(COLLECTION_NAME).deleteOne({
+                _id: ObjectId(req.params._id)
+            });
+            res.send(`Animal record (ID: ${req.params._id}) deleted`)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
     })
 
     app.listen(8888, () => {
