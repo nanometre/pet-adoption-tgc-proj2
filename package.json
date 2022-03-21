@@ -4,7 +4,8 @@
   "description": "*Note: This is a bootcamp project where an interactive web application was created using React, Express and MongoDB*",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",

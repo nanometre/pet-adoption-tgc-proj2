@@ -1,6 +1,5 @@
 const validate = require('../middleware/validate')
 const schema = require('../schema/animal-schema')
-
 const MongoUtil = require('./MongoUtil.js');
 const express = require('express');
 const cors = require('cors');
@@ -108,15 +107,27 @@ async function main() {
     // test for query
     app.get("/querytest", async function (req, res) {
         let criteria = {}
+
+        if (req.query.search) {
+            criteria['description'] = {
+                $regex: req.query.search,
+                $options: 'i'
+            }
+            criteria['gender'] = {
+                $regex: req.query.search,
+                $options: 'i'
+            }
+        };
+
         let db = MongoUtil.getDB();
         let queryResults = await db.collection(COLLECTION_NAME)
-                .find(criteria)
-                .toArray()
+            .find(criteria)
+            .toArray()
 
         res.send(queryResults) // returns {"description":"dog","name":"bob"}
     })
 
-    app.listen(8888, () => {
+    app.listen(process.env.PORT, () => {
         console.log('Server has started')
     })
 }
