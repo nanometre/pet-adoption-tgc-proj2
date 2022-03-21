@@ -1,11 +1,10 @@
-const validate = require('../middleware/validate')
-const schema = require('../schema/animal-schema')
+const validate = require('./middleware/validate')
+const schema = require('./schema/animal-schema')
 const MongoUtil = require('./MongoUtil.js');
 const express = require('express');
 const cors = require('cors');
 const ObjectId = require('mongodb').ObjectId;
 const dotenv = require('dotenv');
-const { query } = require('express');
 dotenv.config();
 
 let app = express();
@@ -107,14 +106,20 @@ async function main() {
     // test for query
     app.get("/querytest", async function (req, res) {
         let criteria = {}
-
+        let gender
+        // console.log(req.query.gender)
+        if (!req.query.gender){
+            gender = ""
+        }else{
+            gender = req.query.gender
+        }
         if (req.query.search) {
             criteria['description'] = {
                 $regex: req.query.search,
                 $options: 'i'
             }
             criteria['gender'] = {
-                $regex: req.query.search,
+                $regex: gender,
                 $options: 'i'
             }
         };
