@@ -49,17 +49,75 @@ async function main() {
     })
 
     // GET: Return all animals in the DB (READ)
-    // To edit. Look at tgc16-mongo 07-api, GET request is combined with search??
+    // To buff up search criteria (search by date)
     app.get("/animals/show", async function (req, res) {
-        let db = MongoUtil.getDB();
-        let animalRecords = await db.collection(COLLECTION_NAME)
-            .find()
-            .toArray();
-        res.json(animalRecords)
+        try {
+            let criteria = {};
+            if (req.query.searchterm) {
+                criteria['$or'] = [
+                    {
+                        'name': {
+                            '$regex': `${req.query.searchterm}`,
+                            '$options': 'i'
+                        }
+                    },
+                    {
+                        'species.breed': {
+                            '$regex': `${req.query.searchterm}`,
+                            '$options': 'i'
+                        }
+                    },
+                    {
+                        'description': {
+                            '$regex': `${req.query.searchterm}`,
+                            '$options': 'i'
+                        }
+                    }
+                ]
+            };
+            if (req.query.gender) {
+                criteria['gender'] = {
+                    '$regex': `^${req.query.gender}$`,
+                    '$options': 'i'
+                }
+            };
+            if (req.query.species_name) {
+                criteria['species.species_name'] = {
+                    '$regex': `^${req.query.species_name}$`,
+                    '$options': 'i'
+                }
+            };
+            if (req.query.status_tags) {
+                criteria['status_tags'] = {
+                    // use $all (match all in arr) or $in (match either one in arr)
+                    '$in': req.query.status_tags.toUpperCase().split(',')
+                }
+            };
+            if (req.query.adopt_foster) {
+                let adoptFosterArr = []
+                for (let w of req.query.adopt_foster.split(',')) {
+                    adoptFosterArr.push(w.charAt(0).toUpperCase() + w.slice(1))
+                }
+                criteria['adopt_foster'] = {
+                    '$in': adoptFosterArr
+                }
+            };
+
+            let db = MongoUtil.getDB();
+            let queryResults = await db.collection(COLLECTION_NAME)
+                .find(criteria)
+                .toArray()
+
+            res.json(queryResults)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
     })
 
     // GET: Return one animal in the DB by ID (READ)
-    // Might not be require, better to find by search terms
+    // Might not be require, better to find by search terms.
+    // But there might be cases on the backend I would like to retreive the data using the _id. 
     app.get("/animals/show/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB();
@@ -110,23 +168,6 @@ async function main() {
             res.status(500)
             res.send("Internal server error. Please contact administrator.")
         }
-    })
-
-    // test for query
-    app.get("/querytest", async function (req, res) {
-        let criteria = {}
-        if (req.query.gender) {
-            criteria['gender'] = {
-                $regex: new RegExp("^" + req.query.gender.toLowerCase(), "i")
-            }
-        };
-
-        let db = MongoUtil.getDB();
-        let queryResults = await db.collection(COLLECTION_NAME)
-            .find(criteria)
-            .toArray()
-
-        res.send(queryResults)
     })
 
     // Deployment port: process.env.PORT
