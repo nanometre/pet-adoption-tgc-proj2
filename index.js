@@ -172,7 +172,7 @@ async function main() {
 
     // Deployment port: process.env.PORT
     // Testing port: 8888
-    app.listen(8888, () => {
+    app.listen(process.env.PORT, () => {
         console.log('Server has started')
     })
 }
