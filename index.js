@@ -36,8 +36,8 @@ async function main() {
         let adopt_foster = req.body.adopt_foster
         let _id = new ObjectId()
         let caretaker_name = req.body.current_caretaker.caretaker_name
-        let caretaker_email = req.body.current_caretaker.email
-        let current_caretaker = { _id, caretaker_name, caretaker_email }
+        let email = req.body.current_caretaker.email
+        let current_caretaker = { _id, caretaker_name, email }
 
 
         let db = MongoUtil.getDB();
