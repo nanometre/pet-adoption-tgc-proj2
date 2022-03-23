@@ -2,7 +2,7 @@
     {
         "_id": "",
         "name": "Meowy",
-        "img_url": "https://images.pexels.com/photos/1314550/pexels-photo-1314550.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+        "img_url": "https://images.pexels.com/photos/2698551/pexels-photo-2698551.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Male",
         "date_of_birth": "2022-03-20",
         "species": {
@@ -62,7 +62,7 @@
     {
         "_id": "",
         "name": "Daisy",
-        "img_url": "https://images.pexels.com/photos/8473529/pexels-photo-8473529.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+        "img_url": "https://images.pexels.com/photos/8473542/pexels-photo-8473542.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Female",
         "date_of_birth": "2022-03-20",
         "species": {
