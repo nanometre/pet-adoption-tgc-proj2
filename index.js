@@ -50,7 +50,7 @@ async function main() {
 
     // GET: Return all animals in the DB (READ)
     // To buff up search criteria (search by date)
-    app.get("/animals/show", async function (req, res) {
+    app.get("/animals", async function (req, res) {
         try {
             let criteria = {};
             if (req.query.searchterm) {
@@ -118,7 +118,7 @@ async function main() {
     // GET: Return one animal in the DB by ID (READ)
     // Might not be require, better to find by search terms.
     // But there might be cases on the backend I would like to retreive the data using the _id. 
-    app.get("/animals/show/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
+    app.get("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB();
             let animalRecord = await db.collection(COLLECTION_NAME)
@@ -172,7 +172,7 @@ async function main() {
 
     // Deployment port: process.env.PORT
     // Testing port: 8888
-    app.listen(process.env.PORT, () => {
+    app.listen(8888, () => {
         console.log('Server has started')
     })
 }
