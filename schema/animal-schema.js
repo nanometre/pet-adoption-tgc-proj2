@@ -7,12 +7,14 @@ const putAnimalSchema = object({
               .required("name is required")
               .typeError("name must be a string"),
         img_url: string()
+                 .required("image url is required")
                  .url("image must be a valid url"),
         gender: string()
                 .required("gender is required")
                 .matches(/^(?:Male|Female)$/, 
                          "gender must be Male or Female"),
         date_of_birth: string()
+                       .required("date_of_birth is required")
                        .matches(/^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/,
                        "date_of_birth is not valid ISO datetime"
           ),
@@ -59,12 +61,14 @@ const postAnimalSchema = object({
               .required("name is required")
               .typeError("name must be a string"),
         img_url: string()
+                 .required("image url is required")
                  .url("image must be a valid url"),
         gender: string()
                 .required("gender is required")
                 .matches(/^(?:Male|Female)$/, 
                          "gender must be Male or Female"),
         date_of_birth: string()
+                       .required("date_of_birth is required")
                        .matches(/^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/,
                        "date_of_birth is not valid ISO datetime"
           ),

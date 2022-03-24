@@ -21,31 +21,42 @@ async function main() {
 
     // Default page
     app.get("/", function (req, res) {
-        res.send("Express app is functional")
+        try {
+            res.send("Express app is functional")
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
     })
 
     // POST: Add new animals in the DB (CREATE)
     app.post("/animals", validate.validate(schema.postAnimalSchema), async function (req, res) {
-        let name = req.body.name
-        let img_url = req.body.img_url
-        let gender = req.body.gender
-        let date_of_birth = req.body.date_of_birth
-        let species = req.body.species
-        let status_tags = req.body.status_tags
-        let description = req.body.description
-        let adopt_foster = req.body.adopt_foster
-        let _id = new ObjectId()
-        let caretaker_name = req.body.current_caretaker.caretaker_name
-        let email = req.body.current_caretaker.email
-        let current_caretaker = { _id, caretaker_name, email }
+        try {
+            let name = req.body.name
+            let img_url = req.body.img_url
+            let gender = req.body.gender
+            let date_of_birth = req.body.date_of_birth
+            let species = req.body.species
+            let status_tags = req.body.status_tags
+            let description = req.body.description
+            let adopt_foster = req.body.adopt_foster
+            let _id = new ObjectId()
+            let caretaker_name = req.body.current_caretaker.caretaker_name
+            let email = req.body.current_caretaker.email
+            let current_caretaker = { _id, caretaker_name, email }
 
 
-        let db = MongoUtil.getDB();
-        await db.collection(COLLECTION_NAME).insertOne({
-            name, img_url, gender, date_of_birth, species, status_tags,
-            description, adopt_foster, current_caretaker
-        })
-        res.send("New animal added")
+            let db = MongoUtil.getDB();
+            await db.collection(COLLECTION_NAME).insertOne({
+                name, img_url, gender, date_of_birth, species, status_tags,
+                description, adopt_foster, current_caretaker
+            })
+            res.send("New animal added")
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
+
     })
 
     // GET: Return all animals in the DB (READ)
