@@ -127,6 +127,12 @@ async function main() {
                     '$in': adoptFosterArr
                 }
             };
+            if (req.query.email) {
+                criteria['current_caretaker.email'] = {
+                    '$regex': `^${req.query.email}$`,
+                    '$options': 'i'
+                }
+            } 
 
             let db = MongoUtil.getDB();
             let queryResults = await db.collection(COLLECTION_NAME)

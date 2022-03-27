@@ -11,7 +11,7 @@
         },
         "description": "I am a cat",
         "status_tags": [
-            "V","M","S"
+            "Vaccinated","Microchipped","Sterilised"
         ],
         "adopt_foster": ["Adopt", "Foster"],
         "current_caretaker": {
@@ -31,7 +31,7 @@
         },
         "description": "I am a dog",
         "status_tags": [
-            "V","M","S"
+            "Vaccinated","Microchipped","Sterilised"
         ],
         "adopt_foster": ["Adopt"],
         "current_caretaker": {
@@ -51,7 +51,7 @@
         },
         "description": "I am a hamster",
         "status_tags": [
-            "H"
+            "HDB Approved"
         ],
         "adopt_foster": ["Foster"],
         "current_caretaker": {
@@ -71,7 +71,7 @@
         },
         "description": "I am a dog",
         "status_tags": [
-            "V","H"
+            "Vaccinated","HDB Approved"
         ],
         "adopt_foster": ["Adopt"],
         "current_caretaker": {
