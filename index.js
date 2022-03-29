@@ -37,7 +37,7 @@ async function main() {
             let name = req.body.name;
             let img_url = req.body.img_url;
             let gender = req.body.gender;
-            let date_of_birth = req.body.date_of_birth;
+            let date_of_birth = new Date(req.body.date_of_birth);
             let species = req.body.species;
             let status_tags = req.body.status_tags;
             let description = req.body.description;
@@ -106,6 +106,20 @@ async function main() {
                     '$options': 'i'
                 }
             };
+            if (req.query.gteyear && !req.query.lteyear) {
+                criteria['date_of_birth'] = {
+                    '$gte': new Date(req.query.gteyear)
+                }
+            } else if (!req.query.gteyear && req.query.lteyear) {
+                criteria['date_of_birth'] = {
+                    '$lte': new Date(req.query.lteyear)
+                }
+            } else if (req.query.gteyear && req.query.lteyear) {
+                criteria['date_of_birth'] = {
+                    '$gte': new Date(req.query.gteyear),
+                    '$lte': new Date(req.query.lteyear)
+                }
+            };
             if (req.query.species_name) {
                 criteria['species.species_name'] = {
                     '$regex': `^${req.query.species_name}$`,
@@ -132,7 +146,7 @@ async function main() {
                     '$regex': `^${req.query.email}$`,
                     '$options': 'i'
                 }
-            } 
+            }
 
             let db = MongoUtil.getDB();
             let queryResults = await db.collection(COLLECTION_NAME)
