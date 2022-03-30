@@ -74,79 +74,80 @@ async function main() {
     })
 
     // GET: Return all animals in the DB (READ)
-    // To buff up search criteria (search by date)
     app.get("/animals", async function (req, res) {
         try {
+            let db = MongoUtil.getDB();
+            let queryResults = await db.collection(COLLECTION_NAME)
+                .find()
+                .toArray()
+
+            res.json(queryResults)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
+    })
+
+    // GET/POST: Using POST request to pass data thru body and get search results
+    app.post("/animals/search", async function (req, res) {
+        try {
             let criteria = {};
-            if (req.query.searchterm) {
+            if (req.body.searchterm) {
                 criteria['$or'] = [
                     {
                         'name': {
-                            '$regex': `${req.query.searchterm}`,
+                            '$regex': `${req.body.searchterm}`,
                             '$options': 'i'
                         }
                     },
                     {
                         'species.breed': {
-                            '$regex': `${req.query.searchterm}`,
+                            '$regex': `${req.body.searchterm}`,
                             '$options': 'i'
                         }
                     },
                     {
                         'description': {
-                            '$regex': `${req.query.searchterm}`,
+                            '$regex': `${req.body.searchterm}`,
                             '$options': 'i'
                         }
                     }
                 ]
             };
-            if (req.query.gender) {
+            if (req.body.gender.length !== 0) {
                 criteria['gender'] = {
-                    '$regex': `^${req.query.gender}$`,
-                    '$options': 'i'
+                    '$in': req.body.gender
                 }
             };
-            if (req.query.gteyear && !req.query.lteyear) {
+            if (req.body.gteyear && !req.body.lteyear) {
                 criteria['date_of_birth'] = {
-                    '$gte': new Date(req.query.gteyear)
+                    '$gte': new Date(req.body.gteyear)
                 }
-            } else if (!req.query.gteyear && req.query.lteyear) {
+            } else if (!req.body.gteyear && req.body.lteyear) {
                 criteria['date_of_birth'] = {
-                    '$lte': new Date(req.query.lteyear)
+                    '$lte': new Date(req.body.lteyear)
                 }
-            } else if (req.query.gteyear && req.query.lteyear) {
+            } else if (req.body.gteyear && req.body.lteyear) {
                 criteria['date_of_birth'] = {
-                    '$gte': new Date(req.query.gteyear),
-                    '$lte': new Date(req.query.lteyear)
+                    '$gte': new Date(req.body.gteyear),
+                    '$lte': new Date(req.body.lteyear)
                 }
             };
-            if (req.query.species_name) {
+            if (req.body.species_name.length !== 0) {
                 criteria['species.species_name'] = {
-                    '$regex': `^${req.query.species_name}$`,
-                    '$options': 'i'
+                    '$in': req.body.species_name
                 }
             };
-            if (req.query.status_tags) {
+            if (req.body.status_tags.length !== 0) {
                 criteria['status_tags'] = {
-                    // use $all (match all in arr) or $in (match either one in arr)
-                    '$in': req.query.status_tags.toUpperCase().split(',')
+                    '$in': req.body.status_tags
                 }
             };
-            if (req.query.adopt_foster) {
-                let adoptFosterArr = []
-                for (let w of req.query.adopt_foster.split(',')) {
-                    adoptFosterArr.push(w.charAt(0).toUpperCase() + w.slice(1))
-                }
+            if (req.body.adopt_foster.length !== 0) {
                 criteria['adopt_foster'] = {
-                    '$in': adoptFosterArr
+                    '$in': req.body.adopt_foster
                 }
             };
-            if (req.query.email) {
-                criteria['current_caretaker.email'] = {
-                    '$regex': `^${req.query.email}$`,
-                    '$options': 'i'
-                }
-            }
 
             let db = MongoUtil.getDB();
             let queryResults = await db.collection(COLLECTION_NAME)
@@ -160,22 +161,26 @@ async function main() {
         }
     })
 
-    // GET: Return one animal in the DB by ID (READ)
-    // Might not be require, better to find by search terms.
-    // But there might be cases on the backend I would like to retreive the data using the _id. 
-    app.get("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
+    // GET/POST: Using POST request to pass user email thru body and get all user listings
+    app.post("/animals/user_listings", async function (req, res) {
         try {
+            let criteria = {};
+            criteria['current_caretaker.email'] = {
+                '$regex': `^${req.body.email}$`,
+                            '$options': 'i'
+            }
             let db = MongoUtil.getDB();
-            let animalRecord = await db.collection(COLLECTION_NAME)
-                .findOne({
-                    _id: new ObjectId(req.params._id)
-                });
-            res.json(animalRecord)
+            let queryResults = await db.collection(COLLECTION_NAME)
+                .find(criteria)
+                .toArray()
+
+            res.json(queryResults)
         } catch (err) {
             res.status(500)
             res.send("Internal server error. Please contact administrator.")
         }
     })
+
 
     // PUT: Edit animals in DB by ID (UPDATE)
     app.put("/animals/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
