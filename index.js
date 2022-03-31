@@ -162,11 +162,11 @@ async function main() {
     })
 
     // GET/POST: Using POST request to pass user email thru body and get all user listings
-    app.get("/animals/user_listings", async function (req, res) {
+    app.post("/animals/user_listings", async function (req, res) {
         try {
             let criteria = {};
             criteria['current_caretaker.email'] = {
-                '$regex': `^${req.params.email}$`,
+                '$regex': `^${req.body.email}$`,
                             '$options': 'i'
             }
             let db = MongoUtil.getDB();
