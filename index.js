@@ -162,11 +162,11 @@ async function main() {
     })
 
     // GET/POST: Using POST request to pass user email thru body and get all user listings
-    app.post("/animals/user_listings", async function (req, res) {
+    app.get("/animals/user_listings", async function (req, res) {
         try {
             let criteria = {};
             criteria['current_caretaker.email'] = {
-                '$regex': `^${req.body.email}$`,
+                '$regex': `^${req.query.email}$`,
                             '$options': 'i'
             }
             let db = MongoUtil.getDB();
@@ -222,7 +222,7 @@ async function main() {
 
     // Deployment port: process.env.PORT
     // Testing port: 8888
-    app.listen(process.env.PORT, () => {
+    app.listen(8888, () => {
         console.log('Server has started')
     })
 }
