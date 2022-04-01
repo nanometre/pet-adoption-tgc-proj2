@@ -195,8 +195,14 @@ async function main() {
                     _id: ObjectId(req.params._id)
                 }, {
                     $set: {
-                        name, img_url, gender, date_of_birth, species,
-                        status_tags, description, adopt_foster
+                        name: name, 
+                        img_url: img_url, 
+                        gender: gender, 
+                        date_of_birth: new Date(date_of_birth), 
+                        species: species,
+                        status_tags: status_tags, 
+                        description: description, 
+                        adopt_foster: adopt_foster
                     }
                 })
             res.send(`Animal record (ID: ${req.params._id}) updated`)
