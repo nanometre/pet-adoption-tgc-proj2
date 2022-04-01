@@ -182,21 +182,21 @@ async function main() {
     })
 
 
-    // PUT: Edit animals in DB by ID (UPDATE)
-    app.put("/animals/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
+    // PATCH: Edit animals in DB by ID (UPDATE)
+    app.patch("/animals/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
         try {
             let {
                 name, img_url, gender, date_of_birth, species, status_tags,
-                description, adopt_foster, current_caretaker
+                description, adopt_foster
             } = req.body
             let db = MongoUtil.getDB();
-            let updateAnimalRecord = await db.collection(COLLECTION_NAME)
+            await db.collection(COLLECTION_NAME)
                 .updateOne({
                     _id: ObjectId(req.params._id)
                 }, {
                     $set: {
                         name, img_url, gender, date_of_birth, species,
-                        status_tags, description, adopt_foster, current_caretaker
+                        status_tags, description, adopt_foster
                     }
                 })
             res.send(`Animal record (ID: ${req.params._id}) updated`)

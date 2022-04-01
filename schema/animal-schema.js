@@ -36,18 +36,7 @@ const putAnimalSchema = object({
             string()
             .required("adopt_foster is required")
             .typeError("adopt_foster must be a string")
-        ),
-        current_caretaker: object({
-            _id: string()
-                 .required("current_caretaker _id is required")
-                 .typeError("current_caretaker _id must be a string"),
-            caretaker_name: string()
-                            .required("caretaker_name is required")
-                            .typeError("caretaker_name must be a string"),
-            email: string()
-                   .email("current_caretaker email is not valid")
-                   .required("current_caretaker email is required")
-        })
+        )
     }),
     params: object({
         _id: string().required("_id is required").typeError("_id must be string")
