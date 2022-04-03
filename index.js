@@ -12,7 +12,8 @@ app.use(express.json());
 app.use(cors());
 
 const mongoUri = process.env.MONGO_URI;
-const COLLECTION_NAME = 'animals';
+const ANIMALS_COLLECTION_NAME = 'animals';
+const COMMENTS_COLLECTION_NAME = 'comments';
 
 // res.json is only needed for POST and PUT requests
 // res.json is not needed for GET and DELETE requests
@@ -46,7 +47,7 @@ async function main() {
             let caretaker_name = req.body.current_caretaker.caretaker_name;
             let email = req.body.current_caretaker.email;
 
-            let animalRecord = await db.collection(COLLECTION_NAME)
+            let animalRecord = await db.collection(ANIMALS_COLLECTION_NAME)
                 .findOne({
                     "current_caretaker.email": {
                         '$regex': email,
@@ -61,7 +62,7 @@ async function main() {
 
             let current_caretaker = { _id, caretaker_name, email };
 
-            await db.collection(COLLECTION_NAME).insertOne({
+            await db.collection(ANIMALS_COLLECTION_NAME).insertOne({
                 name, img_url, gender, date_of_birth, species, status_tags,
                 description, adopt_foster, current_caretaker
             })
@@ -77,7 +78,7 @@ async function main() {
     app.get("/animals", async function (req, res) {
         try {
             let db = MongoUtil.getDB();
-            let queryResults = await db.collection(COLLECTION_NAME)
+            let queryResults = await db.collection(ANIMALS_COLLECTION_NAME)
                 .find()
                 .toArray()
 
@@ -150,7 +151,7 @@ async function main() {
             };
 
             let db = MongoUtil.getDB();
-            let queryResults = await db.collection(COLLECTION_NAME)
+            let queryResults = await db.collection(ANIMALS_COLLECTION_NAME)
                 .find(criteria)
                 .toArray()
 
@@ -170,7 +171,7 @@ async function main() {
                             '$options': 'i'
             }
             let db = MongoUtil.getDB();
-            let queryResults = await db.collection(COLLECTION_NAME)
+            let queryResults = await db.collection(ANIMALS_COLLECTION_NAME)
                 .find(criteria)
                 .toArray()
 
@@ -190,7 +191,7 @@ async function main() {
                 description, adopt_foster
             } = req.body
             let db = MongoUtil.getDB();
-            await db.collection(COLLECTION_NAME)
+            await db.collection(ANIMALS_COLLECTION_NAME)
                 .updateOne({
                     _id: ObjectId(req.params._id)
                 }, {
@@ -216,7 +217,7 @@ async function main() {
     app.delete("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB()
-            await db.collection(COLLECTION_NAME).deleteOne({
+            await db.collection(ANIMALS_COLLECTION_NAME).deleteOne({
                 _id: ObjectId(req.params._id)
             });
             res.send(`Animal record (ID: ${req.params._id}) deleted`)
