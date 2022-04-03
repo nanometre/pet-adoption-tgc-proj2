@@ -1,0 +1,126 @@
+[
+    {
+        "_id": "623bd2b766f3c35a312c2fee",
+        "name": "Snowy",
+        "img_url": "https://images.pexels.com/photos/5894897/pexels-photo-5894897.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        "gender": "Female",
+        "date_of_birth": "2022-03-22T16:00:00.000Z",
+        "species": {
+            "species_name": "Cat",
+            "breed": "Persian"
+        },
+        "status_tags": [
+            "Microchipped",
+            "HDB Approved",
+            "Vaccinated",
+            "Sterilised"
+        ],
+        "description": "Snowy is a Persian with white fluffy fur. She is shy but is playful when she opens up",
+        "adopt_foster": [
+            "Adopt",
+            "Foster"
+        ],
+        "current_caretaker": {
+            "_id": "623bd2b766f3c35a312c2fed",
+            "caretaker_name": "Kevin Goh",
+            "email": "keving@gmail.com"
+        }
+    },
+    {
+        "_id": "623bdaeb66f3c35a312c2ff6",
+        "name": "Goldie",
+        "img_url": "https://images.pexels.com/photos/686094/pexels-photo-686094.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "gender": "Male",
+        "date_of_birth": "2022-03-23T16:00:00.000Z",
+        "species": {
+            "species_name": "Dog",
+            "breed": "Golden Retriever"
+        },
+        "status_tags": [],
+        "description": "Goldie is a gentle golden retriever which will be perfect for family with children. He is friendly with everyone, including strangers!",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "623bdaeb66f3c35a312c2ff5",
+            "caretaker_name": "Charlene Lee",
+            "email": "clsq@hotmail.com"
+        }
+    },
+    {
+        "_id": "623d44af0a7c189a3dbd2a0a",
+        "name": "Daisy",
+        "img_url": "https://images.pexels.com/photos/8473542/pexels-photo-8473542.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+        "gender": "Female",
+        "date_of_birth": "2022-03-19T16:00:00.000Z",
+        "species": {
+            "species_name": "Dog",
+            "breed": "Pomeranian"
+        },
+        "status_tags": [
+            "Vaccinated",
+            "HDB Approved"
+        ],
+        "description": "Daisy is small and round and very cuddly",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "623d44af0a7c189a3dbd2a09",
+            "caretaker_name": "Pawpal Shelter",
+            "email": "pawpal@gmail.com"
+        }
+    },
+    {
+        "_id": "6242d699051ab9f774e39924",
+        "name": "Flash",
+        "img_url": "https://images.pexels.com/photos/3362698/pexels-photo-3362698.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+        "gender": "Male",
+        "date_of_birth": "2022-03-18T16:00:00.000Z",
+        "species": {
+            "species_name": "Hamster",
+            "breed": "Syrian Hamster"
+        },
+        "status_tags": [
+            "HDB Approved",
+            "Microchipped",
+            "Sterilised",
+            "Vaccinated"
+        ],
+        "description": "Flash is flashy and fast and furry.",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "62383ab060c873d41473da51",
+            "caretaker_name": "Pet Sanctuary ",
+            "email": "pet_sanctuary@gmail.com"
+        }
+    },
+    {
+        "_id": "623d458955f97d961cf6b9cc",
+        "name": "The one and only",
+        "img_url": "https://images.pexels.com/photos/9013077/pexels-photo-9013077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "gender": "Male",
+        "date_of_birth": "2022-03-24T16:00:00.000Z",
+        "species": {
+            "species_name": "Cat",
+            "breed": "Egyptian"
+        },
+        "status_tags": [
+            "Vaccinated",
+            "HDB Approved",
+            "Microchipped",
+            "Sterilised"
+        ],
+        "description": "The one and only cat you ever need in your life",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "62383ab060c873d41473da51",
+            "caretaker_name": "Pet Sanctuary",
+            "email": "PET_SANCTUARY@gmail.com"
+        }
+    }
+]

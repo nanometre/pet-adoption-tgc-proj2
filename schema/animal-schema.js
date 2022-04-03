@@ -1,4 +1,4 @@
-const { object, string, number, array } = require("yup");
+const { object, string, array } = require("yup");
 
 // Validation schema for editing existing animal entry
 const putAnimalSchema = object({

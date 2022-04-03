@@ -1,5 +1,6 @@
 const validate = require('./middleware/validate')
-const schema = require('./schema/animal-schema')
+const animalSchema = require('./schema/animal-schema')
+const commentSchema = require('./schema/comment-schema')
 const MongoUtil = require('./MongoUtil.js');
 const express = require('express');
 const cors = require('cors');
@@ -15,8 +16,6 @@ const mongoUri = process.env.MONGO_URI;
 const ANIMALS_COLLECTION_NAME = 'animals';
 const COMMENTS_COLLECTION_NAME = 'comments';
 
-// res.json is only needed for POST and PUT requests
-// res.json is not needed for GET and DELETE requests
 async function main() {
     await MongoUtil.connect(mongoUri, 'pet_adoption')
 
@@ -29,9 +28,11 @@ async function main() {
             res.send("Internal server error. Please contact administrator.")
         }
     })
-
+    // ===========================================================================
+    // ====================== Routes for animals collection ======================
+    // ===========================================================================
     // POST: Add new animals in the DB (CREATE)
-    app.post("/animals", validate.validate(schema.postAnimalSchema), async function (req, res) {
+    app.post("/animals", validate.validate(animalSchema.postAnimalSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB();
 
@@ -162,7 +163,7 @@ async function main() {
         }
     })
 
-    // GET/POST: Using POST request to pass user email thru body and get all user listings
+    // GET: Using GET request to get all user listings
     app.get("/animals/user_listings", async function (req, res) {
         try {
             let criteria = {};
@@ -184,7 +185,7 @@ async function main() {
 
 
     // PATCH: Edit animals in DB by ID (UPDATE)
-    app.patch("/animals/:_id", validate.validate(schema.putAnimalSchema), async function (req, res) {
+    app.patch("/animals/:_id", validate.validate(animalSchema.putAnimalSchema), async function (req, res) {
         try {
             let {
                 name, img_url, gender, date_of_birth, species, status_tags,
@@ -214,7 +215,7 @@ async function main() {
     })
 
     // DELETE: Delete animals in DB by ID (DELETE)
-    app.delete("/animals/:_id", validate.validate(schema.animalIdSchema), async function (req, res) {
+    app.delete("/animals/:_id", validate.validate(animalSchema.animalIdSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB()
             await db.collection(ANIMALS_COLLECTION_NAME).deleteOne({
@@ -224,6 +225,55 @@ async function main() {
         } catch (err) {
             res.status(500)
             res.send("Internal server error. Please contact administrator.")
+        }
+    })
+
+    // ===========================================================================
+    // ====================== Routes for comments collection =====================
+    // ===========================================================================
+    // POST: Add new comment for animal in the DB (CREATE)
+    app.post("/comments", validate.validate(commentSchema.postCommentSchema), async function (req, res) {
+        try {
+            let db = MongoUtil.getDB()
+            
+            let _id = new ObjectId()
+            let animal_id = new ObjectId(req.body.animal_id)
+            let commenter_name = req.body.commenter_name
+            let comment = req.body.comment
+            let rating = req.body.rating
+            let date_of_comment = new Date().toISOString()
+
+            await db.collection(COMMENTS_COLLECTION_NAME).insertOne({
+                _id, animal_id, commenter_name, comment, rating, date_of_comment
+            })
+
+            await db.collection(ANIMALS_COLLECTION_NAME).updateOne({
+                _id: ObjectId(req.body.animal_id)
+            }, {
+                $push: {
+                    comments: _id
+                }
+            })
+
+            res.send("New comment added")
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact adminstrator.")
+        }
+    })
+
+    // GET: Return all the comments from all animals in the DB (READ)
+    app.get("/comments", async function (req, res) {
+        try {
+            let db = MongoUtil.getDB();
+            let queryResults = await db.collection(COMMENTS_COLLECTION_NAME)
+                .find()
+                .toArray()
+            
+            res.json(queryResults)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact adminstrator.")
         }
     })
 
