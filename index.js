@@ -14,7 +14,6 @@ app.use(cors());
 
 const mongoUri = process.env.MONGO_URI;
 const ANIMALS_COLLECTION_NAME = 'animals';
-const COMMENTS_COLLECTION_NAME = 'comments';
 
 async function main() {
     await MongoUtil.connect(mongoUri, 'pet_adoption')
@@ -169,7 +168,7 @@ async function main() {
             let criteria = {};
             criteria['current_caretaker.email'] = {
                 '$regex': `^${req.query.email}$`,
-                            '$options': 'i'
+                '$options': 'i'
             }
             let db = MongoUtil.getDB();
             let queryResults = await db.collection(ANIMALS_COLLECTION_NAME)
@@ -197,13 +196,13 @@ async function main() {
                     _id: ObjectId(req.params._id)
                 }, {
                     $set: {
-                        name: name, 
-                        img_url: img_url, 
-                        gender: gender, 
-                        date_of_birth: new Date(date_of_birth), 
+                        name: name,
+                        img_url: img_url,
+                        gender: gender,
+                        date_of_birth: new Date(date_of_birth),
                         species: species,
-                        status_tags: status_tags, 
-                        description: description, 
+                        status_tags: status_tags,
+                        description: description,
                         adopt_foster: adopt_foster
                     }
                 })
@@ -229,36 +228,29 @@ async function main() {
     })
 
     // ===========================================================================
-    // ====================== Routes for comments collection =====================
+    // =========================== Routes for comments ===========================
     // ===========================================================================
-    // POST: Add new comment for animal in the DB (CREATE)
-    app.post("/comments", validate.validate(commentSchema.postCommentSchema), async function (req, res) {
+    app.post("/comments/:animal_id", validate.validate(commentSchema.postCommentSchema), async function (req, res) {
         try {
-            let db = MongoUtil.getDB()
-            
-            let _id = new ObjectId()
-            let animal_id = new ObjectId(req.body.animal_id)
-            let commenter_name = req.body.commenter_name
-            let comment = req.body.comment
-            let rating = req.body.rating
-            let date_of_comment = new Date().toISOString()
+            let db = MongoUtil.getDB();
 
-            await db.collection(COMMENTS_COLLECTION_NAME).insertOne({
-                _id, animal_id, commenter_name, comment, rating, date_of_comment
-            })
+            let _id = new ObjectId();
+            let commenter_name = req.body.commenter_name;
+            let content = req.body.content;
+            let rating = req.body.rating;
+            let date_of_comment = new Date().toISOString();
 
             await db.collection(ANIMALS_COLLECTION_NAME).updateOne({
-                _id: ObjectId(req.body.animal_id)
+                _id: ObjectId(req.params.animal_id)
             }, {
                 $push: {
-                    comments: _id
+                    comments: {_id, commenter_name, content, rating, date_of_comment}
                 }
             })
-
             res.send("New comment added")
         } catch (err) {
             res.status(500)
-            res.send("Internal server error. Please contact adminstrator.")
+            res.send("Internal server error. Please contact adminstrator." + err)
         }
     })
 
@@ -266,10 +258,14 @@ async function main() {
     app.get("/comments", async function (req, res) {
         try {
             let db = MongoUtil.getDB();
-            let queryResults = await db.collection(COMMENTS_COLLECTION_NAME)
-                .find()
+            let queryResults = await db.collection(ANIMALS_COLLECTION_NAME)
+                .find({
+                    comments: {$exists: true}
+                }, {
+                    projection: {comments: 1}
+                })
                 .toArray()
-            
+
             res.json(queryResults)
         } catch (err) {
             res.status(500)

@@ -3,7 +3,7 @@
         "_id": "",
         "animal_id": "623bd2b766f3c35a312c2fee",
         "commenter_name": "John Doe",
-        "comment": "On our visit to the shelter, Snowy only took 15 mins to warm up to us and was really playful throughout the rest of our visit.",
+        "content": "On our visit to the shelter, Snowy only took 15 mins to warm up to us and was really playful throughout the rest of our visit.",
         "rating": "5",
         "date_of_comment": ""
     },
@@ -11,7 +11,7 @@
         "_id": "",
         "animal_id": "",
         "commenter_name": "",
-        "comment": "",
+        "content": "",
         "rating": "",
         "date_of_comment": ""
     },
@@ -19,7 +19,7 @@
         "_id": "",
         "animal_id": "",
         "commenter_name": "",
-        "comment": "",
+        "content": "",
         "rating": "",
         "date_of_comment": ""
     }
