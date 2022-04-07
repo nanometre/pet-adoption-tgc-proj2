@@ -4,7 +4,7 @@
         "name": "Snowy",
         "img_url": "https://images.pexels.com/photos/5894897/pexels-photo-5894897.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
         "gender": "Female",
-        "date_of_birth": "2022-03-22T16:00:00.000Z",
+        "date_of_birth": "2022-03-22T00:00:00.000Z",
         "species": {
             "species_name": "Cat",
             "breed": "Persian"
@@ -24,7 +24,23 @@
             "_id": "623bd2b766f3c35a312c2fed",
             "caretaker_name": "Kevin Goh",
             "email": "keving@gmail.com"
-        }
+        },
+        "comments": [
+            {
+                "_id": "624a9f6d2232e82e87f9b84f",
+                "commenter_name": "John Doe",
+                "content": "On our visit to the shelter, Snowy only took 15 mins to warm up to us and was really playful throughout the rest of our visit.",
+                "rating": 5,
+                "date_of_comment": "2022-04-04T07:34:05.515Z"
+            },
+            {
+                "_id": "624bb4717a83a1afe56d5c8f",
+                "commenter_name": "John Doe",
+                "content": "Snowy recognized us on our second visit to the shelter. Will definitely be adopting her soon",
+                "rating": "5",
+                "date_of_comment": "2022-04-05T03:16:01.183Z"
+            }
+        ]
     },
     {
         "_id": "623bdaeb66f3c35a312c2ff6",
@@ -45,14 +61,23 @@
             "_id": "623bdaeb66f3c35a312c2ff5",
             "caretaker_name": "Charlene Lee",
             "email": "clsq@hotmail.com"
-        }
+        },
+        "comments": [
+            {
+                "_id": "624aa354e760672cd2853833",
+                "commenter_name": "John Doe",
+                "content": "My daugther loves Goldie so much that she wants to adopt her right away",
+                "rating": 5,
+                "date_of_comment": "2022-04-04T07:50:44.497Z"
+            }
+        ]
     },
     {
         "_id": "623d44af0a7c189a3dbd2a0a",
         "name": "Daisy",
         "img_url": "https://images.pexels.com/photos/8473542/pexels-photo-8473542.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
         "gender": "Female",
-        "date_of_birth": "2022-03-19T16:00:00.000Z",
+        "date_of_birth": "2022-03-19T00:00:00.000Z",
         "species": {
             "species_name": "Dog",
             "breed": "Pomeranian"
@@ -61,7 +86,7 @@
             "Vaccinated",
             "HDB Approved"
         ],
-        "description": "Daisy is small and round and very cuddly",
+        "description": "Daisy is small and round and very cuddly. Daisy is gentle and is perfect for family with kids.",
         "adopt_foster": [
             "Adopt"
         ],
@@ -69,7 +94,87 @@
             "_id": "623d44af0a7c189a3dbd2a09",
             "caretaker_name": "Pawpal Shelter",
             "email": "pawpal@gmail.com"
-        }
+        },
+        "comments": [
+            {
+                "_id": "624ba35b7a83a1afe56d5c8b",
+                "commenter_name": "Mary Jane",
+                "content": "Daisy is so fluffy!!!",
+                "rating": "5",
+                "date_of_comment": "2022-04-05T02:03:07.829Z"
+            }
+        ]
+    },
+    {
+        "_id": "623d458955f97d961cf6b9cc",
+        "name": "The one and only",
+        "img_url": "https://images.pexels.com/photos/9013077/pexels-photo-9013077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "gender": "Male",
+        "date_of_birth": "2022-03-24T00:00:00.000Z",
+        "species": {
+            "species_name": "Cat",
+            "breed": "Egyptian"
+        },
+        "status_tags": [
+            "Vaccinated",
+            "HDB Approved",
+            "Microchipped",
+            "Sterilised"
+        ],
+        "description": "The one and only had be abandoned by its previous owner in a void deck. The one and only is seeking a loving home and it will be the one and only cat you ever need.",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "62383ab060c873d41473da51",
+            "caretaker_name": "Pet Sanctuary",
+            "email": "PET_SANCTUARY@gmail.com"
+        },
+        "comments": [
+            {
+                "_id": "624bb3257a83a1afe56d5c8e",
+                "commenter_name": "Sean",
+                "content": "I want to bring him home!",
+                "rating": "5",
+                "date_of_comment": "2022-04-05T03:10:29.231Z"
+            }
+        ]
+    },
+    {
+        "_id": "623ecc5e8a20522ee6e09ff2",
+        "name": "Benedict Wong",
+        "img_url": "https://i.kym-cdn.com/photos/images/newsfeed/000/967/505/b7b.jpg",
+        "gender": "Male",
+        "date_of_birth": "1995-03-25T00:00:00.000Z",
+        "species": {
+            "species_name": "Cat",
+            "breed": "Singapura"
+        },
+        "status_tags": [
+            "HDB Approved",
+            "Microchipped",
+            "Vaccinated",
+            "Sterilised"
+        ],
+        "description": "Will behave when overfed with Fancy Feast.",
+        "adopt_foster": [
+            "Adopt",
+            "Foster"
+        ],
+        "current_caretaker": {
+            "_id": "623ecc5e8a20522ee6e09ff1",
+            "caretaker_name": "Trent Global College",
+            "email": "info@trentglobal.edu.sg"
+        },
+        "comments": [
+            {
+                "_id": "624ba5277a83a1afe56d5c8c",
+                "commenter_name": "Wooflene",
+                "content": "Benedict Wong's behaviour can be controlled with Whiskas. Although he often likes to swipe the pits, he can be caring and docile if you swipe his pits back.",
+                "rating": "5",
+                "date_of_comment": "2022-04-05T02:10:47.888Z"
+            }
+        ]
     },
     {
         "_id": "6242d699051ab9f774e39924",
@@ -98,29 +203,83 @@
         }
     },
     {
-        "_id": "623d458955f97d961cf6b9cc",
-        "name": "The one and only",
-        "img_url": "https://images.pexels.com/photos/9013077/pexels-photo-9013077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "_id": "6244714cb9466f90529a59d3",
+        "name": "The Rock",
+        "img_url": "https://images.pexels.com/photos/4520483/pexels-photo-4520483.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+        "gender": "Female",
+        "date_of_birth": "2020-09-10T00:00:00.000Z",
+        "species": {
+            "species_name": "Hamster",
+            "breed": "Campbell’s Dwarf Hamster"
+        },
+        "status_tags": [
+            "HDB Approved"
+        ],
+        "description": "The Rock gain her name from looking like a rock. She is very active and will often exercise on the wheel.",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "623bdaeb66f3c35a312c2ff5",
+            "caretaker_name": "Charlene Lee",
+            "email": "clsq@hotmail.com"
+        }
+    },
+    {
+        "_id": "62456a52a9afba7683e57a03",
+        "name": "The one and only 4",
+        "img_url": "https://images.pexels.com/photos/5894897/pexels-photo-5894897.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
         "gender": "Male",
-        "date_of_birth": "2022-03-24T16:00:00.000Z",
+        "date_of_birth": "2019-03-26T00:00:00.000Z",
         "species": {
             "species_name": "Cat",
             "breed": "Egyptian"
         },
         "status_tags": [
-            "Vaccinated",
-            "HDB Approved",
-            "Microchipped",
-            "Sterilised"
+            "HDB Approved"
         ],
-        "description": "The one and only cat you ever need in your life",
+        "description": "The next one and only cat you ever need in your life ",
         "adopt_foster": [
-            "Adopt"
+            "Adopt",
+            "Foster"
         ],
         "current_caretaker": {
             "_id": "62383ab060c873d41473da51",
             "caretaker_name": "Pet Sanctuary",
             "email": "PET_SANCTUARY@gmail.com"
         }
+    },
+    {
+        "_id": "624821d1e1fed0d819d3d696",
+        "name": "Boba",
+        "img_url": "https://hamstersportal.com/wp-content/uploads/2019/12/European-Black-Bear-Hamster.jpg",
+        "gender": "Male",
+        "date_of_birth": "2018-03-15T00:00:00.000Z",
+        "species": {
+            "species_name": "Hamster",
+            "breed": "Black Syrian"
+        },
+        "status_tags": [
+            "HDB Approved",
+            "Microchipped"
+        ],
+        "description": "Boba is as sweet as your standard bubble tea pearls.",
+        "adopt_foster": [
+            "Adopt"
+        ],
+        "current_caretaker": {
+            "_id": "624821d1e1fed0d819d3d695",
+            "caretaker_name": "Sylvester Tan",
+            "email": "syltan@gmail.com"
+        },
+        "comments": [
+            {
+                "_id": "624ba5d87a83a1afe56d5c8d",
+                "commenter_name": "Rob",
+                "content": "Boba is really sweet!!",
+                "rating": "5",
+                "date_of_comment": "2022-04-05T02:13:44.640Z"
+            }
+        ]
     }
 ]

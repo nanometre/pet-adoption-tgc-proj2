@@ -89,64 +89,64 @@ async function main() {
         }
     })
 
-    // GET/POST: Using POST request to pass data thru body and get search results
-    app.post("/animals/search", async function (req, res) {
+    // GET: Using GET request to pass data thru query and get search results
+    app.get("/animals/search", async function (req, res) {
         try {
             let criteria = {};
-            if (req.body.searchterm) {
+            if (req.query.searchterm) {
                 criteria['$or'] = [
                     {
                         'name': {
-                            '$regex': `${req.body.searchterm}`,
+                            '$regex': `${req.query.searchterm}`,
                             '$options': 'i'
                         }
                     },
                     {
                         'species.breed': {
-                            '$regex': `${req.body.searchterm}`,
+                            '$regex': `${req.query.searchterm}`,
                             '$options': 'i'
                         }
                     },
                     {
                         'description': {
-                            '$regex': `${req.body.searchterm}`,
+                            '$regex': `${req.query.searchterm}`,
                             '$options': 'i'
                         }
                     }
                 ]
             };
-            if (req.body.gender.length !== 0) {
+            if (req.query.gender) {
                 criteria['gender'] = {
-                    '$in': req.body.gender
+                    '$in': req.query.gender
                 }
             };
-            if (req.body.gteyear && !req.body.lteyear) {
+            if (req.query.gteyear && !req.query.lteyear) {
                 criteria['date_of_birth'] = {
-                    '$gte': new Date(req.body.gteyear)
+                    '$gte': new Date(req.query.gteyear)
                 }
-            } else if (!req.body.gteyear && req.body.lteyear) {
+            } else if (!req.query.gteyear && req.query.lteyear) {
                 criteria['date_of_birth'] = {
-                    '$lte': new Date(req.body.lteyear)
+                    '$lte': new Date(req.query.lteyear)
                 }
-            } else if (req.body.gteyear && req.body.lteyear) {
+            } else if (req.query.gteyear && req.query.lteyear) {
                 criteria['date_of_birth'] = {
-                    '$gte': new Date(req.body.gteyear),
-                    '$lte': new Date(req.body.lteyear)
+                    '$gte': new Date(req.query.gteyear),
+                    '$lte': new Date(req.query.lteyear)
                 }
             };
-            if (req.body.species_name.length !== 0) {
+            if (req.query.species_name) {
                 criteria['species.species_name'] = {
-                    '$in': req.body.species_name
+                    '$in': req.query.species_name
                 }
             };
-            if (req.body.status_tags.length !== 0) {
+            if (req.query.status_tags) {
                 criteria['status_tags'] = {
-                    '$in': req.body.status_tags
+                    '$in': req.query.status_tags
                 }
             };
-            if (req.body.adopt_foster.length !== 0) {
+            if (req.query.adopt_foster) {
                 criteria['adopt_foster'] = {
-                    '$in': req.body.adopt_foster
+                    '$in': req.query.adopt_foster
                 }
             };
 
@@ -250,7 +250,7 @@ async function main() {
             res.send("New comment added")
         } catch (err) {
             res.status(500)
-            res.send("Internal server error. Please contact adminstrator." + err)
+            res.send("Internal server error. Please contact adminstrator.")
         }
     })
 
