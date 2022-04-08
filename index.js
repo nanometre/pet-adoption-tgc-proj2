@@ -230,6 +230,7 @@ async function main() {
     // ===========================================================================
     // =========================== Routes for comments ===========================
     // ===========================================================================
+    // POST: Add new comment for an animal in DB
     app.post("/comments/:animal_id", validate.validate(commentSchema.postCommentSchema), async function (req, res) {
         try {
             let db = MongoUtil.getDB();
