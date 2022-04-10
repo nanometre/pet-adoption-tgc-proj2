@@ -16,7 +16,7 @@ This is a simple RESTful API project built using MongoDB and Express.js for a pe
 
 ## 1. Context
 
-This is a custom RESTful API built for the [Paw Pals](https://prismatic-phoenix-69c302.netlify.app/) project. The API has CRUD functions which is used to manage a collection of animals. The application is built with [MongoDB](https://www.mongodb.com/) and [Express.js](https://expressjs.com/). The API is hosted on Heroku and can be accessed [here](https://pet-adoption-tgc-proj2-express.herokuapp.com/).
+This is a custom RESTful API built for the [Paw Pals](https://paw-pals.netlify.app/) project. The API has CRUD functions which is used to manage a collection of animals. The application is built with [MongoDB](https://www.mongodb.com/) and [Express.js](https://expressjs.com/). The API is hosted on Heroku and can be accessed [here](https://pet-adoption-tgc-proj2-express.herokuapp.com/).
 
 ## 2. Document Design
 
