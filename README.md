@@ -247,7 +247,7 @@ GET /comments/
 
   This API uses Express.js, a fast, unopinionated, minimalist web framework for Node.js. CRUD routes for the animals collection was created using the framework.
 
-- [MondoDB](https://www.mongodb.com/)
+- [MongoDB](https://www.mongodb.com/)
 
   This API uses MongoDB, a document-oriented database, where the animals collection is stored.
 
