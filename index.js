@@ -274,6 +274,21 @@ async function main() {
         }
     })
 
+    // DELETE: Delete comments in DB by ID (DELETE)
+    app.delete("/comments/:_id", validate.validate(commentSchema.commentIdSchema), async function (req, res) {
+        try {
+            let db = MongoUtil.getDB()
+            await db.collection(ANIMALS_COLLECTION_NAME).updateOne(
+                {'comments._id': ObjectId(req.params._id)},
+                {$pull: {'comments': {'_id': ObjectId(req.params._id)}}}
+            );
+            res.send(`Comment (ID: ${req.params._id}) deleted`)
+        } catch (err) {
+            res.status(500)
+            res.send("Internal server error. Please contact administrator.")
+        }
+    })
+
     // Deployment port: process.env.PORT
     // Testing port: 8888
     app.listen(process.env.PORT, () => {

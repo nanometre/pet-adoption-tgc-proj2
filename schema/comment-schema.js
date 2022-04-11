@@ -19,6 +19,14 @@ const postCommentSchema = object({
     })
 })
 
+// Validation schema comment ID only
+const commentIdSchema = object({
+    params: object({
+        _id: string().required("_id is required").typeError("_id must be string")
+    })
+})
+
 module.exports = {
-    postCommentSchema
+    postCommentSchema,
+    commentIdSchema
 }

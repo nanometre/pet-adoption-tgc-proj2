@@ -241,6 +241,16 @@ GET /comments/
 ]
 ```
 
+### 3.9 Delete animal comment based on ID of comment
+#### Request
+```
+DELETE /comments/:_id
+```
+#### Response
+```
+Comment (ID: _id) deleted
+```
+
 ## 4. Technologies Used
 
 - [Express.js](https://expressjs.com/)
